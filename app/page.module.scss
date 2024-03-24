@@ -1,0 +1,84 @@
+.main {
+    // background-color: rgb(0, 0, 0);
+    min-height: 100vh;
+
+    .header {
+        width: 100vw;
+        display: flex;
+        height: 5rem;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+
+        .titleDiv {
+            h2 {
+                a {
+                    text-decoration: none;
+                    // background: -webkit-linear-gradient(right, rgb(255, 79, 249), #ff0396);
+                    background: linear-gradient(90deg, rgba(255,0,190,1) 0%, rgba(255,0,198,1) 30%, rgba(82,115,255,1) 100%);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-weight: 900;
+                }
+            }
+        }
+
+
+        .navBar {
+            .navList {
+                display: flex;
+                justify-content: space-between;
+                list-style: none;
+
+                .navItem {
+                    padding: 0 1rem 0 1rem;
+
+                    .navLink {
+                        text-decoration: none;
+                        color: rgb(49, 49, 49);
+                        font-weight: 200;
+                    }
+                }
+            }
+        }
+
+        .walletDiv {
+
+            .walletBtn {
+                border: 0px;
+                color: transparent;
+                padding: .5rem 1rem .5rem 1rem;
+                border-radius: 100px;
+                background: black;
+                cursor: pointer;
+                color: white;
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+.mainSection {
+    display: grid;
+    place-content: center;
+    text-align: center;
+
+    .tagline {
+        color: rgb(23, 32, 35);
+        font-size: 3rem;
+        font-weight: 700;
+
+        span {
+            // background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+            background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+            
+            background: linear-gradient(90deg, rgba(255,0,190,1) 0%, rgba(255,0,198,1) 30%, rgba(82,115,255,1) 100%);
+            
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+    }
+}
