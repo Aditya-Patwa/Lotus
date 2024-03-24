@@ -59,6 +59,8 @@
         }
 
         .walletDiv {
+            display: flex;
+            justify-content: space-between;
 
             .walletBtn {
                 border: 0px;
@@ -69,6 +71,17 @@
                 cursor: pointer;
                 background: white;
                 font-weight: 700;
+            }
+        }
+
+        .toggleDiv {
+            display: none;
+
+            .toggleBtn {
+                margin-left: 1rem;
+                border: 0px;
+                background-color: black;
+                cursor: pointer;
             }
         }
     }
@@ -121,9 +134,24 @@
     }
 }
 
-
 @media (max-width: 764px) {
     .navBar {
         display: none;
+    }
+
+    .main {
+        .header {
+            .walletDiv {
+                display: none;
+            }
+        }
+    }
+
+    .main {
+        .header {
+            .toggleDiv {
+                display: grid;
+            }
+        }
     }
 }

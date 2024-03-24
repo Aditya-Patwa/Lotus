@@ -40,6 +40,10 @@
   color: rgba(255, 255, 255, 0.537);
   font-weight: 200;
 }
+.main .header .walletDiv {
+  display: flex;
+  justify-content: space-between;
+}
 .main .header .walletDiv .walletBtn {
   border: 0px;
   color: transparent;
@@ -49,6 +53,15 @@
   cursor: pointer;
   background: white;
   font-weight: 700;
+}
+.main .header .toggleDiv {
+  display: none;
+}
+.main .header .toggleDiv .toggleBtn {
+  margin-left: 1rem;
+  border: 0px;
+  background-color: black;
+  cursor: pointer;
 }
 
 .mainSection {
@@ -92,5 +105,11 @@
 @media (max-width: 764px) {
   .navBar {
     display: none;
+  }
+  .main .header .walletDiv {
+    display: none;
+  }
+  .main .header .toggleDiv {
+    display: grid;
   }
 }/*# sourceMappingURL=page.module.css.map */
