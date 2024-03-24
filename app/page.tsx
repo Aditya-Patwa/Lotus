@@ -9,8 +9,9 @@ export default function Home() {
         <header className={styles.header}>
           <div className={styles.titleDiv}>
             <h2>
-              <a href="/" className={`${roboto_slab.className} antialiased`}>Lotus Notebook</a>
+              <a href="/" className={`${roboto_slab.className} antialiased`}>Lotus</a>
             </h2>
+            <div className={styles.ballDiv}></div>
           </div>
           <nav className={styles.navBar}>
             <ul className={`${roboto_slab.className} ${styles.navList} antialiased`}>
@@ -44,6 +45,14 @@ export default function Home() {
               Explore new possibilities with <br />
               <span>Lotus Notebooks</span>
             </h1>
+            <p className={`${roboto_slab.className} antialiased`}>
+              Manage your task, simplify your workflow. <br />
+              Focus on Quality.
+            </p>
+          </div>
+
+          <div className={styles.getStartedDiv}>
+            <button className={`${roboto_slab.className} ${styles.getStartedBtn} antialiased`}>Get Started</button>
           </div>
         </section>
       </main>
