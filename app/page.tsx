@@ -79,7 +79,7 @@ function MainPage() {
       setError("Provider is not available.");
       return;
     }
-    const program = new Program(idl, programID, provider);
+    // const program = new Program(idl, programID, provider);
   };
 
 
