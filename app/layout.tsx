@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   description: "Lotus Notebooks - Productivity made easy.",
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{

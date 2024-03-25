@@ -59,6 +59,10 @@
 }
 .main .header .toggleDiv .toggleBtn {
   margin-left: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-content: center;
   border: 0px;
   background-color: black;
   cursor: pointer;
@@ -102,7 +106,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 764px) {
+@media (max-width: 860px) {
   .navBar {
     display: none;
   }
@@ -110,6 +114,8 @@
     display: none;
   }
   .main .header .toggleDiv {
-    display: grid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }/*# sourceMappingURL=page.module.css.map */

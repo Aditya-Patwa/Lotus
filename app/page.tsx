@@ -1,8 +1,88 @@
+"use client";
 import Image from "next/image";
-import styles from "./page.module.css";
 import { roboto_slab } from "@/app/ui/fonts";
 
+import { useState } from "react";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { Connection, PublicKey, SystemProgram, Keypair } from "@solana/web3.js";
+import { Program, AnchorProvider } from "@project-serum/anchor";
+import { useWallet } from "@solana/wallet-adapter-react";
+import {
+  WalletMultiButton,
+  WalletDisconnectButton,
+} from "@solana/wallet-adapter-react-ui";
+
+
+import { idl } from "@/app/idl"; // The path to your JSON IDL file
+
+
+
+const programID = new PublicKey("2T8nS5g6szDurxKHS2RGwr1ve9MBhxyX73t7HsLFFBAs");
+const network = "http://127.0.0.1:8899"; // Adjust for your environment: local, devnet, or mainnet-beta
+const opts = { preflightCommitment: "processed" };
+
+
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
+import { clusterApiUrl } from "@solana/web3.js";
+import "@solana/wallet-adapter-react-ui/styles.css";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+
+const wallets = [new PhantomWalletAdapter()];
+
+
+import styles from "./page.module.css";
+
+import "@solana/wallet-adapter-react-ui/styles.css";
+
+
 export default function Home() {
+  return (
+    <ConnectionProvider endpoint="http://127.0.0.1:8899">
+      {" "}
+      {/* Use your desired network */}
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>
+          <MainPage />
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+  );
+}
+
+
+
+function MainPage() {
+  const wallet = useAnchorWallet();
+  const { connected } = useWallet();
+  const [greetingAccountPublicKey, setGreetingAccountPublicKey] =
+    useState<String | null>(null);
+  const [error, setError] = useState("");
+
+  const getProvider = () => {
+    if (!wallet) return null;
+    const connection = new Connection(network, "processed");
+    return new AnchorProvider(connection, wallet, { preflightCommitment: "processed" });
+  };
+
+  const createGreeting = async () => {
+    setError("");
+    if (!connected) {
+      setError("Wallet is not connected.");
+      return;
+    }
+    const provider = getProvider();
+    if (!provider) {
+      setError("Provider is not available.");
+      return;
+    }
+    const program = new Program(idl, programID, provider);
+  };
+
+
   return (
     <>
       <main className={styles.main}>
@@ -33,15 +113,15 @@ export default function Home() {
             </ul>
           </nav>
           <div className={styles.walletDiv}>
-            <button className={`${roboto_slab.className} ${styles.walletBtn} antialiased`}>
-              Connect Wallet
-            </button>
+            <WalletMultiButton className={styles.walletBtn} style={{border: "0px", padding: ".5rem 1rem .5rem 1rem", borderRadius: "100px", color: "black", cursor: "pointer", background: "white", fontWeight: "700"}} />
+            {/* <WalletDisconnectButton className={styles.walletBtn} style={{background: "transparent"}} /> */}
           </div>
 
           <div className={styles.toggleDiv}>
+            <WalletMultiButton className={styles.walletBtn} style={{border: "0px", padding: ".5rem 1rem .5rem 1rem", borderRadius: "100px", color: "black", cursor: "pointer", background: "white", fontWeight: "700"}} />
             <button className={styles.toggleBtn}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="white" className="bi bi-list" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="1.75rem" height="1.75rem" fill="white" className="bi bi-list" viewBox="0 0 16 16">
+                <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
               </svg>
             </button>
           </div>
@@ -64,6 +144,7 @@ export default function Home() {
           </div>
         </section>
       </main>
+
 
     </>
   );

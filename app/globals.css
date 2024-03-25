@@ -8,3 +8,14 @@ body {
   width: 100vw;
   overflow-x: hidden;
 }
+
+.wallet-adapter-button {
+  border: 0px;
+  color: transparent;
+  padding: .5rem 1rem .5rem 1rem;
+  border-radius: 100px;
+  color: black;
+  cursor: pointer;
+  background: white;
+  font-weight: 700;
+}
