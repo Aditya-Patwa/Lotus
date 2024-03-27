@@ -1,50 +1,46 @@
-.main {
-  background-color: black;
-  display: grid;
-  grid-template-rows: 15vh 85vh;
-  min-height: 100vh;
-}
-.main .header {
+.header {
   width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  height: 15vh;
+  background: black;
 }
-.main .header .titleDiv {
+.header .titleDiv {
   display: flex;
   align-items: baseline;
 }
-.main .header .titleDiv h2 a {
+.header .titleDiv h2 a {
   text-decoration: none;
   font-weight: 400;
   color: white;
 }
-.main .header .titleDiv .ballDiv {
+.header .titleDiv .ballDiv {
   height: 1rem;
   width: 1rem;
   margin: 0.3rem 0 0 0.3rem;
   border-radius: 100px;
   background: linear-gradient(90deg, rgb(255, 0, 190) 0%, rgb(255, 0, 198) 30%, rgb(82, 115, 255) 100%);
 }
-.main .header .navBar .navList {
+.header .navBar .navList {
   display: flex;
   justify-content: space-between;
   list-style: none;
 }
-.main .header .navBar .navList .navItem {
+.header .navBar .navList .navItem {
   padding: 0 0.5rem 0 0.5rem;
 }
-.main .header .navBar .navList .navItem .navLink {
+.header .navBar .navList .navItem .navLink {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.537);
   font-weight: 200;
 }
-.main .header .walletDiv {
+.header .walletDiv {
   display: flex;
   justify-content: space-between;
 }
-.main .header .walletDiv .walletBtn {
+.header .walletDiv .walletBtn {
   border: 0px;
   color: transparent;
   padding: 0.5rem 1rem 0.5rem 1rem;
@@ -54,10 +50,10 @@
   background: white;
   font-weight: 700;
 }
-.main .header .toggleDiv {
+.header .toggleDiv {
   display: none;
 }
-.main .header .toggleDiv .toggleBtn {
+.header .toggleDiv .toggleBtn {
   margin-left: 1rem;
   width: 2.5rem;
   height: 2.5rem;
@@ -110,10 +106,10 @@
   .navBar {
     display: none;
   }
-  .main .header .walletDiv {
+  .header .walletDiv {
     display: none;
   }
-  .main .header .toggleDiv {
+  .header .toggleDiv {
     display: flex;
     align-items: center;
     justify-content: space-between;

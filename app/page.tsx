@@ -1,86 +1,41 @@
 "use client";
-import Image from "next/image";
 import { roboto_slab } from "@/app/ui/fonts";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { Connection, PublicKey, SystemProgram, Keypair } from "@solana/web3.js";
-import { Program, AnchorProvider } from "@project-serum/anchor";
 import { useWallet } from "@solana/wallet-adapter-react";
-import {
-  WalletMultiButton,
-  WalletDisconnectButton,
-} from "@solana/wallet-adapter-react-ui";
 
 
-import { idl } from "@/app/idl"; // The path to your JSON IDL file
-
-
-
-const programID = new PublicKey("2T8nS5g6szDurxKHS2RGwr1ve9MBhxyX73t7HsLFFBAs");
-const network = "http://127.0.0.1:8899"; // Adjust for your environment: local, devnet, or mainnet-beta
-const opts = { preflightCommitment: "processed" };
-
-
-import {
-  ConnectionProvider,
-  WalletProvider,
-} from "@solana/wallet-adapter-react";
-import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
-import { clusterApiUrl } from "@solana/web3.js";
 import "@solana/wallet-adapter-react-ui/styles.css";
-import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 
-const wallets = [new PhantomWalletAdapter()];
+// import Wallet from "@/app/components/Wallet";
 
 
 import styles from "./page.module.css";
+import dynamic from 'next/dynamic';
 
-import "@solana/wallet-adapter-react-ui/styles.css";
+const WallentBtns = dynamic(() => import('@/app/components/mywal').then((mod) => mod.Mywal), { ssr: false });
+
+import { useRouter } from "next/navigation";
+
+import Link from "next/link";
+
 
 
 export default function Home() {
-  return (
-    <ConnectionProvider endpoint="http://127.0.0.1:8899">
-      {" "}
-      {/* Use your desired network */}
-      <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          <MainPage />
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
-  );
-}
-
-
-
-function MainPage() {
   const wallet = useAnchorWallet();
   const { connected } = useWallet();
-  const [greetingAccountPublicKey, setGreetingAccountPublicKey] =
-    useState<String | null>(null);
-  const [error, setError] = useState("");
+  const router = useRouter();
 
-  const getProvider = () => {
-    if (!wallet) return null;
-    const connection = new Connection(network, "processed");
-    return new AnchorProvider(connection, wallet, { preflightCommitment: "processed" });
-  };
 
-  const createGreeting = async () => {
-    setError("");
-    if (!connected) {
-      setError("Wallet is not connected.");
-      return;
+  useEffect(() => {
+    if (connected) {
+      console.log("Wallet Connected");
+      router.push("/dashboard");
+    } else {
+      console.log("Wallet Not Connected");
     }
-    const provider = getProvider();
-    if (!provider) {
-      setError("Provider is not available.");
-      return;
-    }
-    // const program = new Program(idl, programID, provider);
-  };
+  }, [connected]);
 
 
   return (
@@ -89,36 +44,39 @@ function MainPage() {
         <header className={styles.header}>
           <div className={styles.titleDiv}>
             <h2>
-              <a href="/" className={`${roboto_slab.className} antialiased`}>Lotus</a>
+              <Link href="/" className={`${roboto_slab.className} antialiased`}>Lotus</Link>
             </h2>
             <div className={styles.ballDiv}></div>
           </div>
           <nav className={styles.navBar}>
             <ul className={`${roboto_slab.className} ${styles.navList} antialiased`}>
               <li className={styles.navItem}>
-                <a href="/" className={styles.navLink}>Home</a>
+                <Link href="/" className={styles.navLink}>Home</Link>
               </li>
               <li className={styles.navItem}>
-                <a href="/" className={styles.navLink}>Products</a>
+                <Link href="/" className={styles.navLink}>Home</Link>
               </li>
               <li className={styles.navItem}>
-                <a href="/" className={styles.navLink}>Resources</a>
+                <Link href="/" className={styles.navLink}>Products</Link>
               </li>
               <li className={styles.navItem}>
-                <a href="/" className={styles.navLink}>Pricing</a>
+                <Link href="/" className={styles.navLink}>Resources</Link>
               </li>
               <li className={styles.navItem}>
-                <a href="/" className={styles.navLink}>Blogs</a>
+                <Link href="/" className={styles.navLink}>Pricing</Link>
+              </li>
+              <li className={styles.navItem}>
+                <Link href="/" className={styles.navLink}>Dashboard</Link>
               </li>
             </ul>
           </nav>
           <div className={styles.walletDiv}>
-            <WalletMultiButton className={styles.walletBtn} style={{border: "0px", padding: ".5rem 1rem .5rem 1rem", borderRadius: "100px", color: "black", cursor: "pointer", background: "white", fontWeight: "700"}} />
+            <WallentBtns />
             {/* <WalletDisconnectButton className={styles.walletBtn} style={{background: "transparent"}} /> */}
           </div>
 
           <div className={styles.toggleDiv}>
-            <WalletMultiButton className={styles.walletBtn} style={{border: "0px", padding: ".5rem 1rem .5rem 1rem", borderRadius: "100px", color: "black", cursor: "pointer", background: "white", fontWeight: "700"}} />
+            <WallentBtns />
             <button className={styles.toggleBtn}>
               <svg xmlns="http://www.w3.org/2000/svg" width="1.75rem" height="1.75rem" fill="white" className="bi bi-list" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
@@ -144,8 +102,6 @@ function MainPage() {
           </div>
         </section>
       </main>
-
-
     </>
   );
 }

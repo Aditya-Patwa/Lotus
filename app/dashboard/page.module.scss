@@ -1,8 +1,4 @@
-.main {
-    background-color: black;
-    display: grid;
-    grid-template-rows: 15vh 85vh;
-    min-height: 100vh;
+
 
     .header {
         width: 100vw;
@@ -10,6 +6,8 @@
         justify-content: space-between;
         align-items: center;
         padding: 1rem;
+        height: 15vh;
+        background: black;
 
         .titleDiv {
             display: flex;
@@ -87,7 +85,7 @@
             }
         }
     }
-}
+
 
 .mainSection {
     display: grid;
@@ -141,15 +139,12 @@
         display: none;
     }
 
-    .main {
         .header {
             .walletDiv {
                 display: none;
             }
         }
-    }
 
-    .main {
         .header {
             .toggleDiv {
                 display: flex;
@@ -157,5 +152,4 @@
                 justify-content: space-between;
             }
         }
-    }
 }
