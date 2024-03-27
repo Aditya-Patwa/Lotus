@@ -1,5 +1,5 @@
 "use client";
-import styles from "@/app/dashboard/page.module.css";
+import styles from "@/app/dashboard/layout.module.css";
 import { roboto_slab } from "@/app/ui/fonts";
 import Link from "next/link";
 
@@ -19,29 +19,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </h2>
             <div className={styles.ballDiv}></div>
           </div>
-          <nav className={styles.navBar}>
-            <ul className={`${roboto_slab.className} ${styles.navList} antialiased`}>
-              <li className={styles.navItem}>
-                <a href="/" className={styles.navLink}>Home</a>
-              </li>
-              <li className={styles.navItem}>
-                <a href="/" className={styles.navLink}>Products</a>
-              </li>
-              <li className={styles.navItem}>
-                <a href="/" className={styles.navLink}>Resources</a>
-              </li>
-              <li className={styles.navItem}>
-                <a href="/" className={styles.navLink}>Pricing</a>
-              </li>
-              <li className={styles.navItem}>
-                <a href="/" className={styles.navLink}>Blogs</a>
-              </li>
-            </ul>
-          </nav>
-          <div className={styles.walletDiv}>
-            <WallentBtns />
-          </div>
-
           <div className={styles.toggleDiv}>
             <WallentBtns />
             <button className={styles.toggleBtn}>
@@ -52,9 +29,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-      <section>
-        {children}
+      <section className={styles.mainSection}>
+        <section className={styles.sideBar}>
+          <h2>This is SideBar</h2>
+        </section>
+        <section className={styles.mainView}>
+          <h2>This is MainView...</h2>
+          {children}
+        </section>
       </section>
+
+
+      <footer className="footer">
+
+      </footer>
     </>
   );
 }

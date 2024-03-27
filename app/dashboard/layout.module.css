@@ -1,0 +1,101 @@
+.header {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  height: 15vh;
+  background: rgba(0, 0, 0, 0.352);
+  position: fixed;
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+  z-index: 100;
+  border-bottom: 1px solid rgb(50, 50, 50);
+}
+.header .titleDiv {
+  display: flex;
+  align-items: baseline;
+}
+.header .titleDiv h2 a {
+  text-decoration: none;
+  font-weight: 400;
+  color: white;
+}
+.header .titleDiv .ballDiv {
+  height: 1rem;
+  width: 1rem;
+  margin: 0.3rem 0 0 0.3rem;
+  border-radius: 100px;
+  background: linear-gradient(90deg, rgb(255, 0, 190) 0%, rgb(255, 0, 198) 30%, rgb(82, 115, 255) 100%);
+}
+.header .navBar .navList {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+.header .navBar .navList .navItem {
+  padding: 0 0.5rem 0 0.5rem;
+}
+.header .navBar .navList .navItem .navLink {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.537);
+  font-weight: 200;
+}
+.header .toggleDiv {
+  display: flex;
+}
+.header .toggleDiv .toggleBtn {
+  margin-left: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-content: center;
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.mainSection {
+  width: 100vw;
+  overflow-x: hidden;
+  min-height: 150vh;
+  display: grid;
+  background-color: black;
+  color: white;
+  grid-template-columns: 20vw 80vw;
+}
+.mainSection .sideBar {
+  padding: 1rem;
+  padding-top: calc(15vh + 1rem);
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.52);
+  border-right: 1px solid rgb(50, 50, 50);
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+  z-index: 50;
+}
+.mainSection .mainView {
+  padding: 1rem;
+  padding-top: calc(15vh + 1rem);
+  background-color: rgb(0, 0, 0);
+}
+
+@media (max-width: 690px) {
+  .mainSection {
+    display: grid;
+    grid-template-columns: 100vw;
+  }
+  .mainSection .sideBar {
+    position: absolute;
+  }
+  .mainSection .mainView {
+    padding-top: 15vh;
+    background-color: rgb(0, 0, 0);
+  }
+}
+@media (max-width: 400px) {
+  .mainSection .sideBar {
+    width: 100vw;
+    position: absolute;
+  }
+}/*# sourceMappingURL=layout.module.css.map */

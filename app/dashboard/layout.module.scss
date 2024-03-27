@@ -1,0 +1,129 @@
+.header {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    height: 15vh;
+    background: rgba(0, 0, 0, 0.352);
+    position: fixed;
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    border-bottom: 1px solid rgb(50, 50, 50);
+
+    .titleDiv {
+        display: flex;
+        align-items: baseline;
+
+        h2 {
+            a {
+                text-decoration: none;
+                // background: -webkit-linear-gradient(right, rgb(255, 79, 249), #ff0396);
+                // background: linear-gradient(90deg, rgba(255,0,190,1) 0%, rgba(255,0,198,1) 30%, rgba(82,115,255,1) 100%);
+                // background-clip: text;
+                // -webkit-background-clip: text;
+                // -webkit-text-fill-color: transparent;
+                font-weight: 400;
+                color: white;
+            }
+        }
+
+        .ballDiv {
+            height: 1rem;
+            width: 1rem;
+            margin: .3rem 0 0 .3rem;
+            border-radius: 100px;
+            background: linear-gradient(90deg, rgba(255, 0, 190, 1) 0%, rgba(255, 0, 198, 1) 30%, rgba(82, 115, 255, 1) 100%);
+        }
+    }
+
+
+    .navBar {
+        .navList {
+            display: flex;
+            justify-content: space-between;
+            list-style: none;
+
+            .navItem {
+                padding: 0 .5rem 0 .5rem;
+
+                .navLink {
+                    text-decoration: none;
+                    color: rgba(255, 255, 255, 0.537);
+                    font-weight: 200;
+                }
+            }
+        }
+    }
+
+    .toggleDiv {
+        display: flex;
+
+        .toggleBtn {
+            margin-left: 1rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: grid;
+            place-content: center;
+            border: 0px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+    }
+}
+
+
+
+.mainSection {
+    width: 100vw;
+    overflow-x: hidden;
+    min-height: 150vh;
+    display: grid;
+    background-color: black;
+    color: white;
+    grid-template-columns: 20vw 80vw;
+
+    .sideBar {
+        padding: 1rem;
+        padding-top: calc(15vh + 1rem);
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.52);
+        border-right: 1px solid rgb(50, 50, 50);
+        backdrop-filter: blur( 4px );
+        z-index: 50;
+    }
+
+    .mainView {
+        padding: 1rem;
+        padding-top: calc(15vh + 1rem);
+        background-color: rgb(0, 0, 0);
+    }
+}
+
+
+@media (max-width: 690px) {
+    .mainSection {
+        display: grid;
+        grid-template-columns: 100vw;
+
+        .sideBar {
+            position: absolute;
+        }
+    
+        .mainView {
+            padding-top: 15vh;
+            background-color: rgb(0, 0, 0);
+        }
+    }
+}
+
+
+@media (max-width: 400px) {
+    .mainSection {
+
+        .sideBar {
+            width: 100vw;
+            position: absolute;
+        }
+    }
+}
