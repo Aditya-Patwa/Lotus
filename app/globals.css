@@ -21,3 +21,69 @@ body {
 }
 
 
+
+
+
+.cdx-block,
+.ce-header,
+.inlineToolButton,
+.ce-inline-toolbar,
+.ce-toolbar__plus,
+.ce-toolbar__settings-btn,
+.ce-popover__search {
+  background-color: black;
+  color: white;
+}
+
+
+.ce-inline-tool:hover {
+  color: black;
+}
+
+.ce-inline-toolbar__dropdown:hover .ce-inline-toolbar__dropdown-content  {
+  color: black;
+}
+.ce-inline-toolbar__dropdown:hover .ce-inline-toolbar__dropdown-arrow {
+  color: black;
+}
+
+.ce-conversion-toolbar, .ce-conversion-tool__icon {
+  background-color: black;
+}
+
+
+.ce-toolbar__plus:hover,
+.ce-toolbar__settings-btn:hover,
+.cdx-loader,
+.cdx-button {
+  color: white;
+  background-color: black;
+}
+
+.cdx-button:hover {
+  background-color: black;
+}
+
+.ce-popover,
+.ce-popover-item,
+.ce-popover-item__icon,
+.ce-popover-items,
+.ce-popover-item:hover {
+  --color-background-item-hover: black;
+  background-color: black;
+  color: white;
+  border: none;
+}
+
+/* .cdx-block, .ce-header {
+  background-color: rgb(5, 5, 5);
+} */
+
+.cdx-block::selection {
+  color: black;
+  background-color: white;
+}
+
+.cdx-search-field__input {
+  color: white;
+}
