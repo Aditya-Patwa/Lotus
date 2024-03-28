@@ -5,7 +5,7 @@
     align-items: center;
     padding: 1rem;
     height: 15vh;
-    background: rgba(0, 0, 0, 0.352);
+    background: rgba(0, 0, 0, 0.331);
     position: fixed;
     backdrop-filter: blur(4px);
     z-index: 100;
@@ -13,7 +13,25 @@
 
     .titleDiv {
         display: flex;
-        align-items: baseline;
+        align-items: center;
+
+        .subTitleDiv {
+            display: flex;
+            align-items: baseline;
+            margin-left: 1rem;
+        }
+
+        .toggleBtn {
+            // margin-left: 1rem;
+            width: 2.35rem;
+            height: 2.35rem;
+            display: grid;
+            place-content: center;
+            border: 0px;
+            cursor: pointer;
+            border-radius: 10px;
+            background: linear-gradient(125deg, rgba(255, 0, 190, 1) 0%, rgba(255, 0, 198, 1) 30%, rgba(82, 115, 255, 1) 100%);
+        }
 
         h2 {
             a {
@@ -73,57 +91,212 @@
 }
 
 
-
-.mainSection {
-    width: 100vw;
-    overflow-x: hidden;
-    min-height: 150vh;
-    display: grid;
+.sideBar {
     background-color: black;
-    color: white;
-    grid-template-columns: 20vw 80vw;
+    border-right: 1px solid rgb(50, 50, 50);
+    height: 100vh;
+    width: 20vw;
+    position: fixed;
+    z-index: 100;
 
-    .sideBar {
+    .topBar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 15vh;
         padding: 1rem;
-        padding-top: calc(15vh + 1rem);
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.52);
-        border-right: 1px solid rgb(50, 50, 50);
-        backdrop-filter: blur( 4px );
-        z-index: 50;
-    }
 
-    .mainView {
-        padding: 1rem;
-        padding-top: calc(15vh + 1rem);
-        background-color: rgb(0, 0, 0);
-    }
-}
+        .titleDiv {
+            display: flex;
+            align-items: baseline;
 
-
-@media (max-width: 690px) {
-    .mainSection {
-        display: grid;
-        grid-template-columns: 100vw;
-
-        .sideBar {
-            position: absolute;
-        }
+            h2 {
+                a {
+                    text-decoration: none;
+                    // background: -webkit-linear-gradient(right, rgb(255, 79, 249), #ff0396);
+                    // background: linear-gradient(90deg, rgba(255,0,190,1) 0%, rgba(255,0,198,1) 30%, rgba(82,115,255,1) 100%);
+                    // background-clip: text;
+                    // -webkit-background-clip: text;
+                    // -webkit-text-fill-color: transparent;
+                    font-weight: 400;
+                    color: white;
+                }
+            }
     
-        .mainView {
-            padding-top: 15vh;
-            background-color: rgb(0, 0, 0);
+            .ballDiv {
+                height: 1rem;
+                width: 1rem;
+                margin: .3rem 0 0 .3rem;
+                border-radius: 100px;
+                background: linear-gradient(90deg, rgba(255, 0, 190, 1) 0%, rgba(255, 0, 198, 1) 30%, rgba(82, 115, 255, 1) 100%);
+            }
+        }
+
+        .closeSideBarDiv {
+            .toggleBtn {
+                // margin-left: 1rem;
+                width: 2rem;
+                height: 2rem;
+                display: grid;
+                place-content: center;
+                border: 0px;
+                cursor: pointer;
+                border-radius: 10px;
+                background: linear-gradient(125deg, rgba(255, 0, 190, 1) 0%, rgba(255, 0, 198, 1) 30%, rgba(82, 115, 255, 1) 100%);
+            }
         }
     }
 }
 
+.mainView {
+    padding: 2rem;
+    padding-top: calc(15vh + 1rem);
+    min-height: 150vh;
+    width: 100vw;
+    background-color: rgb(20, 20, 20);
+    position: absolute;
+    right: 0;
+    color: white;
+}
 
-@media (max-width: 400px) {
-    .mainSection {
+.halfView {
+    width: 80vw;
+}
 
-        .sideBar {
-            width: 100vw;
-            position: absolute;
-        }
+@media (max-width: 974px) {
+    .sideBar {
+        width: 25vw;
+    }
+
+    .halfView {
+        width: 75vw;
     }
 }
+
+
+@media (max-width: 768px) {
+    .sideBar {
+        width: 30vw;
+    }
+
+    .halfView {
+        width: 100vw;
+    }
+}
+
+
+
+@media (max-width: 638px) {
+    .sideBar {
+        width: 35vw;
+    }
+
+    .halfView {
+        width: 100vw;
+    }
+}
+
+
+@media (max-width: 540px) {
+    .sideBar {
+        width: 40vw;
+    }
+
+    .halfView {
+        width: 100vw;
+    }
+}
+
+
+@media (max-width: 468px) {
+    .sideBar {
+        width: 100vw;
+    }
+
+    .halfView {
+        width: 100vw;
+    }
+}
+
+// .mainSection {
+//     width: 100vw;
+//     height: 100vh;
+//     overflow: hidden;
+//     display: grid;
+//     background-color: black;
+//     color: white;
+//     grid-template-columns: 80vw 20vw;
+
+//     .sideBar {
+//         // width: 20vw;
+//         padding: 1rem;
+//         padding-top: calc(15vh + 1rem);
+//         background: rgba(0, 0, 0, 0.52);
+        // border-right: 1px solid rgb(50, 50, 50);
+//         backdrop-filter: blur( 4px );
+//         z-index: 50;
+//         // position: fixed;
+
+//         .topbar {
+//             display: flex;
+//             justify-content: flex-end;
+//             height: 2rem;
+
+//             button {
+//                 background: transparent;
+//                 border: 0px;
+//             }
+//         }
+//     }
+
+//     .mainView {
+//         // position: absolute;
+//         margin-top: 15vh;
+//         padding: 1rem;
+//         // margin-bottom: 5vh;
+        // background-color: rgb(20, 20, 20);
+//         height: 85vh;
+//         overflow-y: scroll;
+
+//         .openSidebarDiv {
+//             height: 2rem;
+//             display: flex;
+//             justify-content: flex-end;
+            
+//             button {
+                // background: linear-gradient(125deg, rgba(255, 0, 190, 1) 0%, rgba(255, 0, 198, 1) 30%, rgba(82, 115, 255, 1) 100%);
+//                 border-radius: 10px;
+//                 width: 2.5rem;
+//                 height: 2.5rem;
+//                 display: grid;
+//                 place-content: center;
+//                 border: 0px;
+//                 cursor: pointer;
+//             }
+//         }
+
+//         .childBox {
+//             margin-top: 2.5rem;
+//         }
+//     }
+// }
+
+// @media (max-width: 830px) {
+//     .mainSection {
+//         grid-template-columns: 75vw 25vw;
+//     }
+// }
+
+
+// @media (max-width: 648px) {
+//     .mainSection {
+//         grid-template-columns: 100vw;
+
+//         .sideBar {
+//             position: absolute;
+//             display: none;
+//             height: 100vh;
+//             width: 100vw;
+//         }
+//     }
+// }
