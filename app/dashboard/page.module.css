@@ -1,0 +1,27 @@
+.welcomeDiv {
+  padding: 1rem;
+}
+.welcomeDiv h1 {
+  font-size: 4rem;
+}
+
+.detailSection .headline {
+  display: flex;
+  justify-content: space-between;
+}
+.detailSection .headline .titleDiv h1 {
+  font-size: 3rem;
+}
+.detailSection .headline .openDiv .newLink {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  background-color: rgb(255, 55, 0);
+  border-radius: 10px;
+  border: 2px solid rgb(255, 55, 0);
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+.detailSection .headline .openDiv .newLink:hover {
+  color: rgb(255, 55, 0);
+  background: transparent;
+}/*# sourceMappingURL=page.module.css.map */

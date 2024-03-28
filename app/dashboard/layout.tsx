@@ -13,7 +13,7 @@ const WallentBtns = dynamic(() => import('@/app/components/mywal').then((mod) =>
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
   const pathname = usePathname()
 
   const { connected } = useWallet();
@@ -23,13 +23,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     setToggle(!toggle);
   }
 
+  useEffect(() => {
+    if (window.innerWidth <= 468) {
+      setToggle(false);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     if (connected) {
       console.log("Wallet Connected");
     } else {
       console.log("Wallet Not Connected");
-      router.push("/");
+      // router.push("/");
     }
   }, [connected]);
 

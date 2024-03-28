@@ -1,0 +1,38 @@
+.welcomeDiv {
+    padding: 1rem;
+
+    h1 {
+        font-size: 4rem;
+    }
+}
+
+.detailSection {
+    .headline {
+        display: flex;
+        justify-content: space-between;
+
+        .titleDiv {
+            h1 {
+                font-size: 3rem;
+            }
+        }
+
+        .openDiv {
+
+            .newLink {
+                text-decoration: none;
+                color: white;
+                font-weight: 600;
+                background-color: rgb(255, 55, 0);
+                border-radius: 10px;
+                border: 2px solid rgb(255, 55, 0);
+                padding: .5rem 1rem .5rem 1rem;
+
+                &:hover {
+                    color: rgba(255, 55, 0, 1);
+                    background: transparent;
+                }
+            }
+        }
+    }
+}

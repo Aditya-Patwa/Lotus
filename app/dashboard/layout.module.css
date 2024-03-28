@@ -160,9 +160,9 @@
 
 .mainView {
   padding-top: 15vh;
-  min-height: 150vh;
+  min-height: 100vh;
   width: 100vw;
-  background-color: rgb(20, 20, 20);
+  background-color: rgb(5, 5, 5);
   position: absolute;
   right: 0rem;
   color: white;
