@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client";
 import EditorJS from '@editorjs/editorjs';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 // import styles from '@/app/dashboard/(user)/categories/[id]/(new)/new-note/page.module.css';
 import styles from './page.module.css';
 import Header from '@editorjs/header';
@@ -16,7 +16,6 @@ import Checklist from '@editorjs/checklist';
 import Quote from '@editorjs/quote';
 import Warning from '@editorjs/warning';
 import Delimiter from '@editorjs/delimiter';
-import NestedList from '@editorjs/nested-list';
 import Table from '@editorjs/table';
 import TextVariantTune from '@editorjs/text-variant-tune';
 import CodeTool from '@editorjs/code';
@@ -27,12 +26,47 @@ import Underline from '@editorjs/underline';
 
 export default function NewNote({ params }: { params: { id: string } }) {
     const editorRef = useRef<HTMLDivElement | null>(null);
-
     const isReady = useRef(false);
+    const editorJsRef = useRef<EditorJS | null>(null);
+    const [error, setError] = useState<String | null>(null);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+
+
+
+    function saveNote() {
+        console.log(title, description);
+        if(title.trim().length === 0) {
+            console.log("Title is Empty");
+            setError("Title cannot be empty ❌");
+            return;
+        }
+
+        if (description.trim().length === 0) {
+            console.log("Description is Empty");
+            setError("Description cannot be empty ❌");
+            return;
+        }
+
+        editorJsRef.current.save().then((outputData) => {
+            console.log('Article data: ', outputData);
+            if(outputData.blocks.length === 0) {
+                console.log("No Data feeded");
+                setError("Blog Post cannot be empty ❌");
+                return;
+            } else {
+                setError(null);
+            }
+        }).catch((error) => {
+            console.log('Saving failed: ', error)
+        });
+    }
+
+
 
     useEffect(() => {
         if (!isReady.current) {
-            const editor = new EditorJS({
+            editorJsRef.current = new EditorJS({
                 /**
                  * Id of Element that should contain Editor instance
                  */
@@ -52,30 +86,23 @@ export default function NewNote({ params }: { params: { id: string } }) {
                     attaches: {
                         class: AttachesTool,
                         config: {
-                            endpoint: 'http://localhost:8008/uploadFile'
+                            endpoint: '/api/uploadfile'
                         }
                     },
                     image: SimpleImage,
                     upload_image: {
                         class: ImageTool,
                         config: {
-                          endpoints: {
-                            byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
-                            byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
-                          }
+                            endpoints: {
+                                byFile: '/api/uploadimg', // Your backend file uploader endpoint
+                                // byUrl: '/api/uploadfile', // Your endpoint that provides uploading by Url
+                            }
                         }
-                    },
-                    nested_list: {
-                        class: NestedList,
-                        inlineToolbar: true,
-                        config: {
-                          defaultStyle: 'unordered'
-                        },
                     },
                     linkTool: {
                         class: LinkTool,
                         config: {
-                          endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for url data fetching,
+                            endpoint: '/api/fetchurl', // Your backend endpoint for url data fetching,
                         }
                     },
                     raw: RawTool,
@@ -103,7 +130,7 @@ export default function NewNote({ params }: { params: { id: string } }) {
                 tunes: ['textVariant'],
             });
             isReady.current = true;
-        }
+        };
     }, []);
 
 
@@ -116,19 +143,27 @@ export default function NewNote({ params }: { params: { id: string } }) {
                     New Note 🖊️
                 </h1>
                 <div>
-                    <button className={styles.saveBtn}>
+                    <button className={styles.saveBtn} onClick={saveNote}>
                         Save
                     </button>
                 </div>
             </div>
 
+            {error && (
+                <div className={styles.errorBlock}>
+                    <div>
+                        {error}
+                    </div>
+                </div>
+            )}
+
 
             <div className={styles.noteConfig}>
-                <div>  
-                    <input type="text" className={styles.titleInput} placeholder="Title" name="title" id="" />
+                <div>
+                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} className={styles.titleInput} placeholder="Title" name="title" id="" />
                 </div>
                 <div>
-                    <textarea name="description" className={styles.descriptionInput} placeholder="Description" id="" cols="10" rows="5"></textarea>
+                    <textarea name="description" value={description} onChange={e => setDescription(e.target.value)} className={styles.descriptionInput} placeholder="Description" id="" cols="10" rows="5"></textarea>
                 </div>
             </div>
 

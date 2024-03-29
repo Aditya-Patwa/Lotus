@@ -1,7 +1,7 @@
 .topDiv {
     display: flex;
     padding: 1rem;
-    justify-content: space-between;
+    justify-content: space-around;
 
     .title {
         font-size: 2.5rem;
@@ -28,6 +28,25 @@
     }
 }
 
+.errorBlock {
+    display: grid;
+    place-content: center;
+
+    div {
+        margin: 1rem 1rem 0 1rem;
+        border: 1px solid red;
+        color: red;
+        font-size: .75rem;
+        width: 65vw;
+        display: flex;
+        align-self: center;
+        border-radius: 5px;
+        font-weight: 700;
+        padding: .75rem 1.25rem .75rem 1.25rem;
+        background-color: rgba(255, 117, 117, 0.224);
+    }
+}
+
 .editor {
     margin-top: 2rem;
     padding: 2rem;
@@ -36,9 +55,10 @@
 .noteConfig {
     display: grid;
     place-content: center;
-    margin: 2rem 0 2rem 0;
+    margin: 1rem 0 2rem 0;
 
-    .titleInput, .descriptionInput {
+    .titleInput,
+    .descriptionInput {
         margin: 1rem 0 0rem 0;
         width: 65vw;
         border: 0px;
@@ -62,13 +82,17 @@
 
 @media (max-width: 450px) {
     .topDiv {
+        justify-content: space-between;
+
         .title {
             font-size: 1.5rem;
         }
     }
 
     .noteConfig {
-        .titleInput, .descriptionInput {
+
+        .titleInput,
+        .descriptionInput {
             width: 85vw;
         }
     }
