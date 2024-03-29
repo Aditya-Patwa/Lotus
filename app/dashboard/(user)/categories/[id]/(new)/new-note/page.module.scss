@@ -1,7 +1,79 @@
-.title {
-    font-size: 2.5rem;
+.topDiv {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    div {
+        display: grid;
+        place-content: center;
+
+        .saveBtn {
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            background: cornflowerblue;
+            border: 0px;
+            padding: .75rem 1.5rem .75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover {
+                background: rgb(53, 122, 251);
+            }
+        }
+    }
 }
 
 .editor {
     margin-top: 2rem;
+    padding: 2rem;
+}
+
+.noteConfig {
+    display: grid;
+    place-content: center;
+    margin: 2rem 0 2rem 0;
+
+    .titleInput, .descriptionInput {
+        margin: 1rem 0 0rem 0;
+        width: 65vw;
+        border: 0px;
+        font-weight: 900;
+        font-size: 1.5rem;
+        border-bottom: 1px solid rgb(48, 48, 48);
+        color: white;
+        background-color: black;
+        padding: 1rem;
+        outline: none;
+    }
+
+    .descriptionInput {
+        font-weight: 600;
+        font-size: 1.15rem;
+        color: grey;
+    }
+}
+
+
+
+@media (max-width: 450px) {
+    .topDiv {
+        .title {
+            font-size: 1.5rem;
+        }
+    }
+
+    .noteConfig {
+        .titleInput, .descriptionInput {
+            width: 85vw;
+        }
+    }
+
+    .editor {
+        padding: .5rem;
+    }
 }

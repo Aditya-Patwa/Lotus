@@ -87,3 +87,42 @@ body {
 .cdx-search-field__input {
   color: white;
 }
+
+
+.cdx-text-variant__toggler svg, .cdx-settings-button svg {
+  color: white;
+  fill: white;
+}
+
+.cdx-text-variant__toggler:hover svg, .cdx-settings-button:hover svg {
+  color: black;
+  fill: black;
+}
+
+
+.tc-popover.tc-popover--opened, .tc-popover__item-icon {
+  background: black;
+}
+
+
+.tc-cell.tc-cell--selected, .tc-row.tc-row--selected {
+  background: rgb(25, 25, 25);
+}
+
+.tc-popover__item .tc-popover__item-icon {
+  background: black;
+}
+
+.tc-toolbox__toggler:hover svg {
+  color: white;
+  fill: white;
+}
+
+code.inline-code {
+  background: white;
+  color: red;
+}
+
+.cdx-block.cdx-warning:before {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='5' y='5' width='14' height='14' rx='4' stroke='orangered' stroke-width='2'/%3E%3Cline x1='12' y1='9' x2='12' y2='12' stroke='orangered' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M12 15.02V15.01' stroke='orangered' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
