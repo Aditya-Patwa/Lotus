@@ -22,6 +22,10 @@ import CodeTool from '@editorjs/code';
 import InlineCode from '@editorjs/inline-code';
 import Marker from '@editorjs/marker';
 import Underline from '@editorjs/underline';
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
+import { Connection, PublicKey, SystemProgram, Keypair } from "@solana/web3.js";
+import { Program, AnchorProvider } from "@project-serum/anchor";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 
 export default function NewNote({ params }: { params: { id: string } }) {
@@ -33,8 +37,11 @@ export default function NewNote({ params }: { params: { id: string } }) {
     const [description, setDescription] = useState("");
 
 
+    
 
-    function saveNote() {
+
+
+    async function saveNote() {
         console.log(title, description);
         if(title.trim().length === 0) {
             console.log("Title is Empty");
@@ -56,6 +63,12 @@ export default function NewNote({ params }: { params: { id: string } }) {
                 return;
             } else {
                 setError(null);
+
+                let res = await fetch("/api/savepost", {method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({title: title, description: description, data: outputData})});
+                let data = await res.json();
+
+
+
             }
         }).catch((error) => {
             console.log('Saving failed: ', error)
@@ -143,7 +156,7 @@ export default function NewNote({ params }: { params: { id: string } }) {
                     New Note 🖊️
                 </h1>
                 <div>
-                    <button className={styles.saveBtn} onClick={saveNote}>
+                    <button className={styles.saveBtn} onClick={() => saveNote()}>
                         Save
                     </button>
                 </div>
