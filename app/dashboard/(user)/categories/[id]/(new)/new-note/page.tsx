@@ -41,7 +41,7 @@ export default function NewNote({ params }: { params: { id: string } }) {
 
 
 
-    async function saveNote() {
+    function saveNote() {
         console.log(title, description);
         if(title.trim().length === 0) {
             console.log("Title is Empty");
@@ -55,7 +55,7 @@ export default function NewNote({ params }: { params: { id: string } }) {
             return;
         }
 
-        editorJsRef.current.save().then((outputData) => {
+        editorJsRef.current.save().then(async (outputData) => {
             console.log('Article data: ', outputData);
             if(outputData.blocks.length === 0) {
                 console.log("No Data feeded");
@@ -156,7 +156,7 @@ export default function NewNote({ params }: { params: { id: string } }) {
                     New Note 🖊️
                 </h1>
                 <div>
-                    <button className={styles.saveBtn} onClick={() => saveNote()}>
+                    <button className={styles.saveBtn} onClick={saveNote}>
                         Save
                     </button>
                 </div>
