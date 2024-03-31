@@ -22,18 +22,13 @@ import CodeTool from '@editorjs/code';
 import InlineCode from '@editorjs/inline-code';
 import Marker from '@editorjs/marker';
 import Underline from '@editorjs/underline';
+
+import { programID, network, opts } from '@/app/api/web3/web3';
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { Connection, PublicKey, SystemProgram, Keypair } from "@solana/web3.js";
 import { Program, AnchorProvider } from "@project-serum/anchor";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { idl } from '@/app/idl';
-
-
-const programID = new PublicKey("2T8nS5g6szDurxKHS2RGwr1ve9MBhxyX73t7HsLFFBAs");
-const network = "http://127.0.0.1:8899"; // Adjust for your environment: local, devnet, or mainnet-beta
-const opts = { preflightCommitment: "processed" };
-
-
+import { Connection, PublicKey, SystemProgram, Keypair } from "@solana/web3.js";
 
 
 export default function NewNote({ params }: { params: { id: string } }) {
@@ -44,6 +39,7 @@ export default function NewNote({ params }: { params: { id: string } }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
+
     const wallet = useAnchorWallet();
     const { connected, publicKey } = useWallet();
 
@@ -51,38 +47,46 @@ export default function NewNote({ params }: { params: { id: string } }) {
     const getProvider = () => {
         if (!wallet) return null;
         const connection = new Connection(network, opts.preflightCommitment);
-        return new AnchorProvider(connection, wallet, opts.preflightCommitment);
+        return new AnchorProvider(connection, wallet, opts);
     };
+    
 
-    const createGreeting = async () => {
+    async function createNote(title: String, description: String, url: String) {
         const provider = getProvider();
         if (!provider) {
             setError("Provider is not available.");
-            return;
+            return "Provider is not available";
         }
 
+        if(!connected) {
+            setError("Wallet Not Connected.");
+            return "Wallet Not Connected";
+        }
+    
         const program = new Program(idl, programID, provider);
-
+    
         try {
             const newAccountKp = Keypair.generate();
-
+    
             console.log(newAccountKp.publicKey.toString());
-
+    
             const txHash = await program.methods
-                .createNote()
+                .createNote(title, description, url, new PublicKey(params.id), publicKey)
                 .accounts({
                     noteAccount: newAccountKp.publicKey,
-                    signer: publicKey,
+                    signer: publicKey!,
                     systemProgram: SystemProgram.programId,
                 })
                 .signers([newAccountKp])
                 .rpc();
-
+    
+            return "Success";
         } catch (err) {
             console.error("Error creating greeting account:", err);
             setError("Failed to create greeting account. Please try again.");
         }
     }
+
 
 
     function saveNote() {
@@ -99,14 +103,7 @@ export default function NewNote({ params }: { params: { id: string } }) {
             return;
         }
 
-        const provider = getProvider();
-        if (!provider) {
-            setError("Provider is not available.");
-            return;
-        }
 
-
-        const program = new Program(idl, programID, provider);
 
         editorJsRef.current.save().then(async (outputData) => {
             console.log('Article data: ', outputData);
@@ -122,33 +119,9 @@ export default function NewNote({ params }: { params: { id: string } }) {
 
                 console.log(data.blob.url);
 
-                try {
-                    const noteAccount = Keypair.generate();
-                    const txHash = await program.methods
-                        .createNote(title, description, data.blob.url, null, publicKey)
-                        .accounts({
-                            noteAccount: noteAccount.publicKey,
-                            signer: publicKey,
-                            systemProgram: SystemProgram.programId,
-                        })
-                        .signers([noteAccount])
-                        .rpc();
+                let msg = await createNote(title, description, data.blob.url);
 
-                    console.log(txHash);
-
-
-                    // const latestBlockHash = await provider.connection.getLatestBlockhash();
-                    // // Confirm transaction
-
-                    // await provider.connection.confirmTransaction({
-                    //     blockhash: latestBlockHash.blockhash,
-                    //     lastValidBlockHeight: latestBlockHash.lastValidBlockHeight, signature: txHash
-                    // });
-
-                } catch (err) {
-                    console.error("Error creating greeting account:", err);
-                    setError("Failed to create greeting account. Please try again.");
-                }
+                console.log(msg);
 
             }
         }).catch((error) => {
