@@ -7,7 +7,7 @@ import { Program, AnchorProvider, Idl } from "@project-serum/anchor";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { idl } from '@/app/idl';
 import { Connection, PublicKey, SystemProgram, Keypair } from "@solana/web3.js";
-
+import styles from './page.module.css';
 
 
 export default function Categories() {
@@ -41,7 +41,7 @@ export default function Categories() {
         let all_categories = await program.account.category.all();
 
         let my_category = all_categories.filter((i) => {
-            return (i.account.creator.toString() === publicKey!.toString());
+            return (i.account.creator.toString() === publicKey!.toString() && i.account.parent === null);
         });
 
         setCategories([...my_category]);
@@ -51,27 +51,37 @@ export default function Categories() {
         fetchCategories();
     }, []);
 
-    useEffect(() => {
-        console.log(categories);
-    }, [categories]);
 
 
     return (
         <>
-            <h1>Your Categories</h1>
-            <Link href="/dashboard/categories/fhfihfwuirvrvifv29383">
-                View fowfoewwe</Link>
+            <div className={styles.topDiv}>
+                <h1 className={styles.title}>
+                    Categories
+                </h1>
+                <div>
+                    <Link href="/dashboard/categories/new" className={styles.saveBtn} style={{textDecoration: "None"}}>
+                        New Category
+                    </Link>
+                </div>
+            </div>
 
 
-            {categories.map((category, i) => {
-                return (
-                    <li key={i}>
-                        <Link href={`/dashboard/categories/${category.publicKey.toString()}`}>
-                            {category.account.name}
-                        </Link>
-                    </li>
-                );
-            })}
+            <ul className={styles.list}>
+                {categories.map((category, i) => {
+                    return (
+                        <li key={i}>
+                            <Link href={`/dashboard/categories/${category.publicKey.toString()}`} className={styles.links}>
+                                <div className={styles.linkBox}>
+                                    <div className={styles.categoryName}>  
+                                        {category.account.name}
+                                    </div>
+                                </div>
+                            </Link>
+                        </li>
+                    );
+                })}
+            </ul>
         </>
 
     );

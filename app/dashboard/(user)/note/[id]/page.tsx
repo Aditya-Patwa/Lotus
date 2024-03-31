@@ -2,8 +2,8 @@
 "use client";
 import EditorJS from '@editorjs/editorjs';
 import { useRef, useEffect, useState } from 'react';
-// import styles from '@/app/dashboard/(user)/categories/[id]/(new)/new-note/page.module.css';
-import styles from './page.module.css';
+import styles from '@/app/dashboard/(user)/categories/[id]/(new)/new-note/page.module.css';
+// import styles from '..//page.module.css';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
 import Embed from '@editorjs/embed';
@@ -32,6 +32,15 @@ import { Connection, PublicKey, SystemProgram, Keypair } from "@solana/web3.js";
 
 import { useRouter } from 'next/navigation';
 
+
+interface NoteInterface {
+    name: String,
+    data: String,
+    url: String,
+    category: PublicKey | null,
+    creator: PublicKey
+}
+
 export default function NewNote({ params }: { params: { id: string } }) {
     const editorRef = useRef<HTMLDivElement | null>(null);
     const isReady = useRef(false);
@@ -39,6 +48,9 @@ export default function NewNote({ params }: { params: { id: string } }) {
     const [error, setError] = useState<String | null>(null);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [note, setNote] = useState<NoteInterface | null>(null);
+
+    const [notedata, setNotedata] = useState({});
 
     const router = useRouter();
 
@@ -51,91 +63,33 @@ export default function NewNote({ params }: { params: { id: string } }) {
         const connection = new Connection(network, opts.preflightCommitment);
         return new AnchorProvider(connection, wallet, opts);
     };
-    
 
-    async function createNote(title: String, description: String, url: String) {
+    async function fetchNote() {
         const provider = getProvider();
         if (!provider) {
-            setError("Provider is not available.");
-            return "Provider is not available";
+            console.log("Provider is not available");
         }
+    
+        if (!connected) {
+            console.log("Wallet Not Connected");
+        }
+    
+        const program = new Program(idl, programID, provider!);
 
-        if(!connected) {
-            setError("Wallet Not Connected.");
-            return "Wallet Not Connected";
-        }
-    
-        const program = new Program(idl, programID, provider);
-    
-        try {
-            const newAccountKp = Keypair.generate();
-    
-            console.log(newAccountKp.publicKey.toString());
-    
-            const txHash = await program.methods
-                .createNote(title, description, url, new PublicKey(params.id), publicKey)
-                .accounts({
-                    noteAccount: newAccountKp.publicKey,
-                    signer: publicKey!,
-                    systemProgram: SystemProgram.programId,
-                })
-                .signers([newAccountKp])
-                .rpc();
-    
-            router.push(`/dashboard/categories/${params.id}`);
-            return "Success";
-        } catch (err) {
-            console.error("Error creating greeting account:", err);
-            setError("Failed to create greeting account. Please try again.");
-        }
+        const fetchedNote = await program.account.note.fetch(new PublicKey(params.id));
+
+        console.log(fetchedNote);
+        setNote({name: fetchedNote.name, data: fetchedNote.data, url: fetchedNote.url, category: fetchedNote.category.toString(), creator: fetchedNote.creator.toString()});
+
     }
 
+    async function fetchNoteUrl() {
+        if(note?.url) {
+            let res = await fetch(note.url);
+            let data = await res.json();
 
-
-    function saveNote() {
-        console.log(title, description);
-        if (title.trim().length === 0) {
-            console.log("Title is Empty");
-            setError("Title cannot be empty ❌");
-            return;
-        }
-
-        if (description.trim().length === 0) {
-            console.log("Description is Empty");
-            setError("Description cannot be empty ❌");
-            return;
-        }
-
-
-
-        editorJsRef.current.save().then(async (outputData) => {
-            console.log('Article data: ', outputData);
-            if (outputData.blocks.length === 0) {
-                console.log("No Data feeded");
-                setError("Blog Post cannot be empty ❌");
-                return;
-            } else {
-                setError(null);
-
-                let res = await fetch("/api/savepost", { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: title, description: description, data: outputData }) });
-                let data = await res.json();
-
-                console.log(data.blob.url);
-
-                let msg = await createNote(title, description, data.blob.url);
-
-                console.log(msg);
-
-            }
-        }).catch((error) => {
-            console.log('Saving failed: ', error)
-        });
-    }
-
-
-
-    useEffect(() => {
-        if (!isReady.current) {
+            console.log(data);
+            setNotedata(data.data);
             editorJsRef.current = new EditorJS({
                 /**
                  * Id of Element that should contain Editor instance
@@ -143,7 +97,7 @@ export default function NewNote({ params }: { params: { id: string } }) {
                 holder: editorRef.current!,
                 placeholder: "Let's Start😇....",
 
-
+                readOnly: true,
 
                 /** 
    * Available Tools list. 
@@ -198,10 +152,21 @@ export default function NewNote({ params }: { params: { id: string } }) {
                 },
 
                 tunes: ['textVariant'],
+
+
+                data: data.data
             });
-            isReady.current = true;
-        };
+        }
+    }
+
+    useEffect(() => {
+        fetchNote();
     }, []);
+
+    useEffect(() => {
+        fetchNoteUrl();
+    }, [note]);
+
 
 
 
@@ -210,32 +175,13 @@ export default function NewNote({ params }: { params: { id: string } }) {
         <>
             <div className={styles.topDiv}>
                 <h1 className={styles.title}>
-                    New Note 🖊️
+                    {note && (note.name)}
                 </h1>
-                <div>
-                    <button className={styles.saveBtn} onClick={saveNote}>
-                        Save
-                    </button>
-                </div>
             </div>
 
-            {error && (
-                <div className={styles.errorBlock}>
-                    <div>
-                        {error}
-                    </div>
-                </div>
-            )}
-
-
-            <div className={styles.noteConfig}>
-                <div>
-                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} className={styles.titleInput} placeholder="Title" name="title" id="" />
-                </div>
-                <div>
-                    <textarea name="description" value={description} onChange={e => setDescription(e.target.value)} className={styles.descriptionInput} placeholder="Description" id="" cols="10" rows="5"></textarea>
-                </div>
-            </div>
+            <p style={{padding: "1rem", color: "grey", fontWeight: "500"}}>
+                {note && (note.data)}
+            </p>
 
             <section className={styles.editor} ref={editorRef}>
 

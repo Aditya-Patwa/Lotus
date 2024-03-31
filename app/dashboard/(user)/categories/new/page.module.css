@@ -1,0 +1,38 @@
+.title {
+    font-size: 2.5rem;
+}
+
+.saveDiv {
+    display: grid;
+    width: 65vw;
+    padding: 1rem;
+
+    margin-bottom: 30vh;
+}
+
+
+.saveBtn {
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    background: rgb(78, 136, 244);
+    border: 0px;
+    padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.saveBtn:hover {
+    background: rgb(53, 122, 251);
+    box-shadow: 3px 3px 0 2px rgb(19, 61, 139);
+    color: rgb(19, 61, 139);
+}
+
+
+
+@media (max-width: 450px) {
+    .saveDiv {
+        width: 85vw;
+    }
+}

@@ -44,7 +44,7 @@ const endpoint = useMemo(() => clusterApiUrl(network), []);
   const wallets = [new PhantomWalletAdapter()];
 
 return (
-  <ConnectionProvider endpoint="http://127.0.0.1:8899">
+  <ConnectionProvider endpoint="https://api.devnet.solana.com">
     {" "}
     {/* Use your desired network */}
     <WalletProvider wallets={wallets} autoConnect>
