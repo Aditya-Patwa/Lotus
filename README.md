@@ -15,3 +15,14 @@ Lotus helps you connect and manage your team members and provides a platform for
 
 ### Communities 🏫
 Lotus let you build and connect with different communities, where you can learn anything new and build together with people from every corner of world.
+
+### Plugins 🔌
+Lotus provides different plugins and apps for faster and effective work. It let you integrate different plugins to improve learning and business management.
+
+
+## Our Aim ✈️
+Our Aim is to provide you secure and best productivity tools for faster and effective progress and learning.
+We provides highly effective and different plugins and to integrate and rapidly manage your teams at low cost.
+
+
+#### We are currently in development phase and aiming to launch full production ready app till end of June, 2024.
