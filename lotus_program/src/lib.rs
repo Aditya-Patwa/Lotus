@@ -91,6 +91,39 @@ mod hello_anchor {
 
         Ok(())
     }
+
+    pub fn create_community(
+        ctx: Context<CreateCommunity>,
+        name: String,
+        description: String,
+        creator: Pubkey
+    ) -> Result<()> {
+        let community_account = &mut ctx.accounts.community_account;
+        community_account.name = name.clone();
+        community_account.description = description.clone();
+        community_account.members = Vec::new();
+        community_account.members.push(creator);
+        community_account.creator = creator;
+
+        Ok(())
+    }
+
+    pub fn join_community(ctx: Context<JoinCommunity>, member: Pubkey) -> Result<()> {
+        let community_account = &mut ctx.accounts.community_account;
+
+        community_account.members.push(member);
+
+        Ok(())
+    }
+
+    pub fn update_community(ctx: Context<UpdateCommunity>, name: String, description: String) -> Result<()> {
+        let community_account = &mut ctx.accounts.community_account;
+
+        community_account.name = name.clone();
+        community_account.description = description.clone();
+
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
@@ -142,6 +175,29 @@ pub struct UpdateNote<'info> {
     pub note_account: Account<'info, Note>,
 }
 
+#[derive(Accounts)]
+pub struct CreateCommunity<'info> {
+    #[account(init, payer=signer, space = 4+50+4+500+3200+32)]
+    pub community_account: Account<'info, Community>,
+    #[account(mut)]
+    pub signer: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct JoinCommunity<'info> {
+    #[account(mut)]
+    pub community_account: Account<'info, Community>,
+}
+
+
+#[derive(Accounts)]
+pub struct UpdateCommunity<'info> {
+    #[account(mut)]
+    pub community_account: Account<'info, Community>,
+}
+
+
 #[account]
 pub struct LotusAccount {
     name: String,
@@ -169,8 +225,9 @@ pub struct Note {
 #[account]
 pub struct Community {
     name: String,
+    description: String,
     members: Vec<Pubkey>,
-    creators: Vec<Pubkey>,
+    creator: Pubkey,
 }
 
 #[account]

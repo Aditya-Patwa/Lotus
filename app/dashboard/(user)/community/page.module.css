@@ -1,0 +1,116 @@
+.topDiv {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+  }
+  .topDiv .title {
+    font-size: 2.5rem;
+  }
+  .topDiv div {
+    display: grid;
+    place-content: center;
+  }
+  .topDiv div .saveBtn {
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    background: rgb(78, 136, 244);
+    border: 0px;
+    padding: 0.75rem 1.5rem 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  .topDiv div .saveBtn:hover {
+    background: rgb(53, 122, 251);
+    box-shadow: 3px 3px 0 2px rgb(19, 61, 139);
+    color: rgb(19, 61, 139);
+  }
+
+.titleDiv h1 {
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+.list {
+    padding: 1rem;
+    display: grid;
+    list-style: none;
+    grid-gap: 5%;
+    grid-template-columns: 30% 30% 30%;
+}
+
+.links {
+    text-decoration: none;
+}
+.linkBox {
+    text-align: center;
+    padding: 1.5rem 0 1.5rem 0;
+    height: auto;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 900;
+    color: white;
+    display: grid;
+    border: 1px solid white;
+    background-color: rgb(19, 19, 19);
+    box-shadow: 4px 4px 0px 2px white;
+    transition: .2s ease-out;
+}
+
+.linkBox:hover {
+    background-color: white;
+    color: rgb(0, 0, 0);
+    box-shadow: 0 0 0 0;
+}
+
+
+
+.noteBox {
+  text-align: center;
+  padding: 1.5rem 0 1.5rem 0;
+  height: auto;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 900;
+  color: white;
+  display: grid;
+  transition: .2s ease-out;
+}
+
+
+.noteBox:hover {
+  background-color: rgb(19, 19, 19);
+  box-shadow: 4px 4px 0px 2px white;
+}
+
+
+
+.emojiBlock {
+    display: grid;
+    place-content: center;
+    font-size: 2rem;
+}
+
+.categoryName {
+    display: grid;
+    place-content: center;
+    font-size: 1.75rem;
+}
+
+.noteBox .categoryName {
+  font-size: 1rem;
+}
+
+
+@media (max-width: 642px) {
+  .list {
+    grid-template-columns: 45% 45%;
+  }
+}
+
+@media (max-width: 564px) {
+  .list {
+    grid-template-columns: 90%;
+  }
+}
